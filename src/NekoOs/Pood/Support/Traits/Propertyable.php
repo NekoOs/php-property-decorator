@@ -2,7 +2,6 @@
 
 namespace NekoOs\Pood\Support\Traits;
 
-use Exception;
 use NekoOs\Pood\Reflections\Property;
 
 trait Propertyable

@@ -3,8 +3,11 @@
 namespace NekoOs\Pood\Reflections;
 
 use Closure;
+use NekoOs\Pood\Exceptions\AccessAttributeException;
+use NekoOs\Pood\Exceptions\UndefinedAttributeException;
 use NekoOs\Pood\Support\Contracts\ReadPropertyable;
 use NekoOs\Pood\Support\Contracts\WritePropertyable;
+use ReflectionException;
 use TypeError;
 
 class Property
@@ -22,7 +25,7 @@ class Property
      * @param $name
      *
      * @return bool
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public static function hasRead($subject, $name): bool
     {
@@ -61,7 +64,7 @@ class Property
      * @param string $name
      *
      * @return bool
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public static function hasReadMutator(string $class, string $name): bool
     {
@@ -78,7 +81,7 @@ class Property
      * @param string $name
      *
      * @return bool
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private static function hasWriteMutator(string $class, string $name): bool
     {
@@ -176,15 +179,20 @@ class Property
     public function read($object, $name, $force = false)
     {
         $reflection = Classes::reflect($force ? $object : get_class($object));
-        $isPublicAttribute = $reflection->hasProperty($name) 
+        $existAttribute = $reflection->hasProperty($name);
+        $isPublicAttribute = $existAttribute 
                 && $reflection->getProperty($name)->isPublic();
         
         if ($isPublicAttribute) {
             $response = $object->$name;
         } elseif (static::hasReadMutator(get_class($object), $name)) {
             $response = call_user_func(Property::makeReadMutator($object, $name));
+        } elseif (empty ($existAttribute)) {
+            throw new UndefinedAttributeException("Undefined property: $reflection->name::$$name");
+        } elseif($reflection->getProperty($name)->isPrivate()) {
+            throw new AccessAttributeException("Cannot access private property: $reflection->name::$$name");
         } else {
-            throwNewException('property not exist');
+            throw new AccessAttributeException("Cannot access protected property: $reflection->name::$$name");
         }
         return $response;
     }
@@ -192,15 +200,20 @@ class Property
     public static function write($object, $name, $value, $force = false)
     {
         $reflection = Classes::reflect($force ? $object : get_class($object));
-        $isPublicAttribute = $reflection->hasProperty($name) 
+        $existAttribute = $reflection->hasProperty($name);
+        $isPublicAttribute = $existAttribute 
                 && $reflection->getProperty($name)->isPublic();
         
         if ($isPublicAttribute) {
             $response = $object->$name;
         } elseif (static::hasWriteMutator(get_class($object), $name)) {
             $response = call_user_func(Property::makeWriteMutator($object, $name), $value);
+        } elseif (empty ($existAttribute)) {
+            throw new UndefinedAttributeException("Undefined property: $reflection->name::$$name");
+        } elseif($reflection->getProperty($name)->isPrivate()) {
+            throw new AccessAttributeException("Cannot access private property: $reflection->name::$$name");
         } else {
-            throwNewException('property not exist');
+            throw new AccessAttributeException("Cannot access protected property: $reflection->name::$$name");
         }
     }
 
