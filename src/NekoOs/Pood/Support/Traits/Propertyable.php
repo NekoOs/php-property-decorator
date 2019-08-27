@@ -2,22 +2,19 @@
 
 namespace NekoOs\Pood\Support\Traits;
 
+use Exception;
 use NekoOs\Pood\Reflections\Property;
 
-class Propertyable
+trait Propertyable
 {
     public function __get($name)
     {
-        if (Property::hasRead(static::class, $name)) {
-            
-        }
+        return Property::read($this, $name);
     }
     
     public function __set($name, $value)
     {
-        if (Property::hasWrite(static::class, $name)) {
-            
-        }
+        return Property::write($this, $name, $value);
     }
     
     public function __isset($name)
