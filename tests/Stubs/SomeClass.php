@@ -11,14 +11,4 @@ class SomeClass
     {
 
     }
-
-    public function getSuccessAttribute()
-    {
-
-    }
-
-    protected function getFailAttribute()
-    {
-
-    }
 }

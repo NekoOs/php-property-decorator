@@ -8,6 +8,7 @@ use NekoOs\Pood\Support\Contracts\WritePropertyable;
 use PHPUnit\Framework\TestCase;
 use ReflectionException;
 use Tests\Stubs\MagicSomeClass;
+use Tests\Stubs\PropertyableSomeClass;
 use Tests\Stubs\SomeClass;
 
 class PropertyTest extends TestCase
@@ -19,6 +20,7 @@ class PropertyTest extends TestCase
      */
     public function testGivenReadPropertyableImplementedAndMutatorReadPropertyIsAccessibleWhenHasReadThenShouldReturnTrue()
     {
+        // solved requirement to ReadPropertyable interface and is defined mutator method by undefined attribute
         $mock = $this->getMockBuilder(ReadPropertyable::class)
                 ->setMethods(['getSuccessAttribute', '__isset', '__get'])
                 ->getMock();
@@ -87,6 +89,7 @@ class PropertyTest extends TestCase
         $this->assertTrue($response);
 
         return $mock;
+        
     }
 
     /**
@@ -235,6 +238,18 @@ class PropertyTest extends TestCase
         $this->assertTrue($response);
 
         return $mock;
+    }
+
+    public function testGivenPropertyableObjectWhenAccessToPropertyThenShouldReturnValue()
+    {
+        $mock = $this->getMockBuilder(PropertyableSomeClass::class)
+                ->setMethods(['getMagicAttribute'])
+                ->getMock();
+
+        $mock->method('getMagicAttribute')
+                ->willReturn(true);
+
+        $this->assertTrue($mock->magicAttribute);
     }
 
 }
