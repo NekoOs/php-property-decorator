@@ -2,6 +2,7 @@
   "name": "nekoos-pood/propertyable",
   "description": "Simple manager for ",
   "minimum-stability": "dev",
+  "prefer-stable": true,
   "license": "MIT",
   "authors": [
     {
@@ -10,8 +11,8 @@
     }
   ],
   "require": {
-    "php": ">=7.0.0",
-    "nekoos-pood/bitwise-flag": "dev-master"
+    "php": ">=7.1.0",
+    "nekoos-pood/bitwise-flag": "^0.1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "*"
