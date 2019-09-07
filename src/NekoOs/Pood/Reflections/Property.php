@@ -176,7 +176,7 @@ class Property
         return $method;
     }
     
-    public function read($object, $name, $force = false)
+    public static function read($object, $name, $force = false)
     {
         $reflection = Classes::reflect($force ? $object : get_class($object));
         $existAttribute = $reflection->hasProperty($name);
