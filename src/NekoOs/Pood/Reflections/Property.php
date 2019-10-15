@@ -83,7 +83,7 @@ class Property
      * @return bool
      * @throws ReflectionException
      */
-    private static function hasWriteMutator(string $class, string $name): bool
+    public static function hasWriteMutator(string $class, string $name): bool
     {
         $response = false;
         if (is_subclass_of($class, WritePropertyable::class)) {
