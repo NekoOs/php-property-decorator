@@ -1,5 +1,5 @@
 {
-  "name": "nekoos-pood/propertyable",
+  "name": "nekoos/php-property-decorator",
   "description": "Simple manager for ",
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -15,17 +15,13 @@
     "nekoos-pood/bitwise-flag": "^0.1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "*"
+    "phpunit/phpunit": "7.5.*"
   },
   "autoload": {
     "psr-4": {
-      "NekoOs\\": "src/NekoOs/",
-      "NekoOs\\Decorators\\": "src/",
+      "NekoOs\\Decorator\\": "src/",
       "Tests\\": "tests/"
-    },
-    "files": [
-      "src/NekoOs/Pood/Reflections/helpers.php"
-    ]
+    }
   },
   "repositories": {
     "jasny/phpdoc-parser": {
