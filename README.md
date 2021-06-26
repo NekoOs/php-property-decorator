@@ -1,54 +1,46 @@
-# Propertyable
+# PHP Property Decorator
 
 Properties combine aspects of both fields and methods. To the user of an object, a property appears to be a field, accessing the property requires the same syntax. To the implementer of a class, a property is one or two code blocks, representing a get accessor and/or a set accessor.
 
 ## Installation
 
 ```sh
-composer require nekoos-pood/propertyable
+composer require "nekoos/php-property-decorator:dev-master"
 ```
 
 ## Usage
 
 ### General use
 
-Let's say you want to implement the use of properties to ensure that the value of some attribute requires an integer type:
+This library provides your with a built-in @property decorator as DocBlock which makes use of getter and setters much easier in
+Object-Oriented Programming.
 
 ```php
-use NekoOs\Pood\Support\Contracts\Propertyable as PropertyableContract;
-use NekoOs\Pood\Support\Traits\Propertyable;
+use NekoOs\Decorator\Concerns\HasDecoratorProperties;
 
-class SomeClass implements PropertyableContract
+require_once "vendor/autoload.php";
+/**
+ * @property int $age {read getAge} {write setAge}
+ */
+class SomeClass
 {
-    use Propertyable;
+    use HasDecoratorProperties;
 
-    public  $successAttribute;
-    private $magicAttribute = 1024;
-    private $failAttribute;
+    private $age;
 
-    public function getMagicAttribute() : int
+    public function getAge() : int
     {
-        return $this->magicAttribute;
+        return $this->age;
     }
 
-    public function setMagicAttribute(int $value)
+    public function setAge(int $value): void
     {
-        $this->magicAttribute = $value;
+        $this->age= $value;
     }
 }
 
 $someClass = new SomeClass();
 
-## Setters
-$someClass->successAttribute = 3000;      // set a value in public attribute normally
-$someClass->magicAttribute   = 2048;      // set a value in attribute inaccessible through a property
-$someClass->magicAttribute = 'fail';      // ¡throw error! must be of the type int, string given
-$someClass->undefinedAttribute = $value;  // ¡throw error! undefined attribute
-$someClass->failAttribute = $value;       // ¡throw error! unaccesible attribute
+$someClass->age = '33';
 
-## Getters
-$value = $someClass->successAttribute;    // return 3000
-$value = $someClass->magicAttribute;      // return 1024
-$value = $someClass->undefinedAttribute;  // ¡throw error! undefined attribute
-$value = $someClass->failAttribute;       // ¡throw error! unaccesible attribute
-```
+var_dump($someClass->age);      # int(33)
