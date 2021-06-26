@@ -1,5 +1,5 @@
 {
-  "name": "nekoos-pood/propertyable",
+  "name": "nekoos/php-property-decorator",
   "description": "Simple manager for ",
   "minimum-stability": "dev",
   "prefer-stable": true,
@@ -11,19 +11,22 @@
     }
   ],
   "require": {
-    "php": ">=7.1.0",
+    "jasny/phpdoc-parser": "dev-hotfix/ignore-phpdoc-closing",
     "nekoos-pood/bitwise-flag": "^0.1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "*"
+    "phpunit/phpunit": "7.5.*"
   },
   "autoload": {
     "psr-4": {
-      "NekoOs\\": "src/NekoOs/",
+      "NekoOs\\Decorator\\": "src/",
       "Tests\\": "tests/"
-    },
-    "files": [
-      "src/NekoOs/Pood/Reflections/helpers.php"
-    ]
+    }
+  },
+  "repositories": {
+    "jasny/phpdoc-parser": {
+      "type": "vcs",
+      "url": "https://github.com/NekoOs/phpdoc-meta.git"
+    }
   }
 }
