@@ -7,6 +7,9 @@ use NekoOs\Decorator\v1\Compatibility;
 use NekoOs\Pood\Reflections\Property;
 use ReflectionClass;
 
+/**
+ * @deprecated
+ */
 trait Propertyable
 {
 
