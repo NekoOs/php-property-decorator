@@ -19,10 +19,7 @@
       "NekoOs\\": "src/NekoOs/",
       "NekoOs\\Decorator\\": "src/",
       "Tests\\": "tests/"
-    },
-    "files": [
-      "src/NekoOs/Pood/Reflections/helpers.php"
-    ]
+    }
   },
   "repositories": {
     "jasny/phpdoc-parser": {
